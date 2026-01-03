@@ -1,0 +1,13 @@
+# generate a "compile_commands.json" for LSP
+# take a c file (like main.c for example), extract libs from Makefile
+# and generate compile_commands.json
+generate_compile_commands(){
+	cfiles=( "$@" )
+	(( ${#cfiles[@]} )) || { 
+		echo please provide at lease one source file 1>&2;
+		return
+	}
+
+   	bear -- cc "${cfiles[@]}" \
+		$(grep -o 'pkg-config[^)]*' Makefile | xargs pkg-config)
+}
