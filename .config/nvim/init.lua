@@ -73,7 +73,6 @@ require("lazy").setup({
 		},
 		config = true,
 	},
-	{ 'github/copilot.vim' },
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{
@@ -222,12 +221,3 @@ require("lazy").setup({
 
 	-- Neo-tree
 	vim.keymap.set('n', ',,', ':Neotree toggle source=filesystem<CR>', { silent = true })
-
-
-	-- disable copilot in markdown files
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "markdown",
-		callback = function()
-			vim.b.copilot_enabled = false
-		end,
-	})
